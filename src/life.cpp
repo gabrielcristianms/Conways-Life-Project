@@ -21,10 +21,15 @@ Life::~Life(){
 	delete [] m_cells;
 }
 
-void
-Life::setAlive( std::stringstream &_file ){
-
-}
+/*void
+Life::setAlive( const std::stringstream &_file ){
+	for(size_type i = 0; i < m_height; ++i) {
+		std::string line = _file.getline();
+		for( size_type j = 0; j < m_width; ++j) {
+			m_cells[i][j] = line[j];
+		}
+	}
+}*/
 
 bool
 Life::operator==( Life &_rhs ){

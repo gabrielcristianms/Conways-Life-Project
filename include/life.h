@@ -16,7 +16,7 @@ class Life{
 		//Destructor
 		~Life();
 		//Initializes a configuration of the game
-		void setAlive( std::stringstream& );
+		void setAlive( const std::stringstream& );
 		//This function aplies the rules of Conway's Game of Life, killing or creating cells.
 		void update( void );
 		//Checks if the configuration is stable
@@ -30,7 +30,15 @@ class Life{
 		//Copy assignment.
 		Life& operator=( const Life& );
 		//Overloading the << operator to print Life objects using cout and similar functions.
-		friend std::ostream& operator<<( std::ostream&, Life& );
+		friend std::ostream & operator<<( std::ostream& _os, const Life &_obj ){
+			for(size_type i = 0; i < _obj.m_height; ++i) {
+				for( size_type j = 0; j < _obj.m_width; ++j) {
+					_os << _obj.m_cells[i][j];
+				}
+			_os << "\n";
+			}
+			return _os;
+		};
 	private:
 		int **m_cells;
 		size_type m_height;
