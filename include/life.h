@@ -1,6 +1,7 @@
 #ifndef __LIFE_H__
 #define __LIFE_H__
 #include <iostream>
+#include <sstream>
 #include <cassert>
 #include <algorithm>
 #include <cstdlib>
@@ -15,7 +16,7 @@ class Life{
 		//Destructor
 		~Life();
 		//Initializes a configuration of the game
-		void setAlive( std::ostream& );
+		void setAlive( std::stringstream& );
 		//This function aplies the rules of Conway's Game of Life, killing or creating cells.
 		void update( void );
 		//Checks if the configuration is stable
