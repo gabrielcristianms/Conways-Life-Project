@@ -7,29 +7,31 @@
 
 class Life{
 	public:
-		//Defining a type for the size of the matrix
+		//Defining an alias for the size parameters of the matrix
 		using size_type = unsigned long;
 
 		//Default Constructor
-		Life( size_type, size_type, std::ostream& );
-		//Copy Constructor
-		Life( const Life& );
+		Life( size_type, size_type );	
 		//Destructor
 		~Life();
+		//Initializes a configuration of the game
+		void setAlive( std::ostream& );
 		//This function aplies the rules of Conway's Game of Life, killing or creating cells.
 		void update( void );
-		//This function prints the actual configuration in the screen.
-		void print( void ) const;
+		//Checks if the configuration is stable
+		bool isStable( void );
+		//Checks if the configuration is defunct
+		bool isExtinct( void );
 		//Overloading the == operator to compare different Life instances.
-		bool operator==( Life& ) const;
+		bool operator==( Life& );
 		//Overloading the != operator to compare different Life instances.
-		bool operator!=( Life& ) const;
+		bool operator!=( Life& );
 		//Copy assignment.
 		Life& operator=( const Life& );
 		//Overloading the << operator to print Life objects using cout and similar functions.
 		friend std::ostream& operator<<( std::ostream&, Life& );
 	private:
-		bool **m_cells;
+		int **m_cells;
 		size_type m_height;
 		size_type m_width;
 };
