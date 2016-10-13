@@ -53,6 +53,16 @@ Life::setAlive( std::stringstream &_file ){
 }
 
 bool
+Life::isExtinct( void ){
+	for(size_type i = 1; i <= this->m_height; ++i) {
+		for( size_type j = 1; j <= this->m_width; ++j) {
+			if( this->m_cells[i][j] != 0 ) return false;
+		}
+	}
+	return true;
+}
+
+bool
 Life::operator==( Life &_rhs ){
 	if( this->m_height != _rhs.m_height ) return false;
 	if( this->m_width != _rhs.m_width ) return false;

@@ -14,6 +14,13 @@ int main(int argc, char const *argv[]){
 	ss << "11\n10";
 	colonia.setAlive( ss );
 	std::cout << colonia << std::endl;
+
+	if( colonia.isExtinct() ) std::cout << "A colonia morreu!\n";
+	else std::cout << "A colonia esta viva!!!\n";
+
+	if( petri.isExtinct() ) std::cout << "Petri morreu!\n";
+	else std::cout << "Petri esta viva!!!\n";
+
 	std::cout << ">>> Normal Exiting...\n";
 	return EXIT_SUCCESS;
 }
