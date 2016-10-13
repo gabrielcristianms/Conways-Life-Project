@@ -23,17 +23,33 @@ Life::~Life(){
 
 void
 Life::setAlive( std::stringstream &_file ){
-	std::vector<std::string> line;
-	std::string temp;
-	_file >> temp;
-	std::cout << temp << "\n";
+	std::stringstream temp; //This one is an auxiliary we'll use to convert values to the right type
+	std::vector<std::string> line; // We'll use this container to hold each line of the stream passed as parameter 
+	size_type i = 1; // Initialized at val 1 so that we'll only access the m_height x m_width matrix
+	size_type j = 1; // Initialized at val 1 so that we'll only access the m_height x m_width matrix
 
-	// A ideia é utilizar a stringstream e um for para ler a linhas e inicializar a matriz, não esqueça
+	// Loop para pegar cada linha da stringstream e por num vector de strings
+	for( std::string temp; getline( _file, temp ); line.push_back( temp ) ){ /* Empty */ };
 
-	/*std::istringstream colony( _file );
-	for( std::string cell; std::getline( colony, cell ); line.push_back( cell ) ){
-		std::cout << "Oi\n";
-	} */
+	// Loop para popular a matriz
+	for( auto e : line ){
+		// the type of 'e' will be the type which the elements of the vector is, i.e. std::string
+		// since the type std::string has begin(), end() methods, we do another ranged for to get the chars of the string
+		for( auto c : e ){
+			// We'll use a stringstream to convert from char to int
+			// Put the char in the stream
+			temp << c;
+			// Transfer it as an int to the right position in the cell and increment j index, which covers the m_width
+			temp >> m_cells[i][j++];
+			// Clearing the temp to avoid wrong values
+			temp.clear(); 
+		}
+		// This is necessary so that in the next iteration of the outer for we don't go out of the m_height x m_width matrix range
+		j = 1;
+		//Increment of the i index, which covers the m_height 
+		++i;
+	}
+
 }
 
 bool

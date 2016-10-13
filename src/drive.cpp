@@ -11,8 +11,9 @@ int main(int argc, char const *argv[]){
 
 	Life colonia( 2, 2 );
 	std::stringstream ss;
-	ss << "01\n10";
+	ss << "11\n10";
 	colonia.setAlive( ss );
+	std::cout << colonia << std::endl;
 	std::cout << ">>> Normal Exiting...\n";
 	return EXIT_SUCCESS;
 }
