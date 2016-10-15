@@ -88,12 +88,38 @@ int main(int argc, char const *argv[]){
     		flag_stable = true;
     		break;
     	}
-    	cout << "Press ctrl-D to stop.\n";
-    }while( cin >> word );
+    	cout << "Continue?\n(y?n) \n";
+    	cin >> word;
+    }while(  word != "n" );
 
     if( flag_extinct ) cout << "The simulation ended with extinction at generation #" << g+1 << endl;
     if( flag_stable )  cout << "The simulation ended with stability at generation #"  << g+1 << " with frequency "<< g-1 << endl;
 
- 	cout << ">>> Normal Exiting...\n";
+    string create;
+    create = argv[2];
+        
+    ofstream output (create);
+    if (output.is_open())
+    {
+    	cout << "File opened at " << create << " with success!\n";
+    	Life::size_type i = 1;
+	    for( auto &gen : simulation.gen ){
+	    	output << "Generation #" << i++ << "\n\n"
+	    		   << gen
+	    		   << "\n\n";
+	    }
+	    if( flag_stable )
+	    	output << "Generation #" << i << "\n\n" << simulation << "\n\nEnd of log.";
+        output.close();
+    }
+    else cout << "Unable to open file";
+        
+        
+        
+        
+        
+        
+        
+	std::cout << ">>> Normal Exiting...\n";
 	return EXIT_SUCCESS;
 }
