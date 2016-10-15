@@ -112,13 +112,7 @@ int main(int argc, char const *argv[]){
 	    	output << "Generation #" << i << "\n\n" << simulation << "\n\nEnd of log.";
         output.close();
     }
-    else cout << "Unable to open file";
-        
-        
-        
-        
-        
-        
+    else cout << "Unable to open file";        
         
 	std::cout << ">>> Normal Exiting...\n";
 	return EXIT_SUCCESS;
