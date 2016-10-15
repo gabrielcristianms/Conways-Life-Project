@@ -14,12 +14,14 @@ int main(int argc, char const *argv[]){
         string arquivo;
         arquivo = argv[1];
         
+        int cont1 = 0, cont2 = 0;
         Life::size_type altura, largura;
         ifstream input (arquivo);
-        stringstream ss1, ss2, ss3;
-        string dim, carvivo, temp, matriz1, matriz2; 
+        stringstream ss1, ss2;
+        string dim, carvivo, temp, matriz; 
         
         if (input.is_open())
+            
         {
             getline(input,dim);
             ss1 << dim;
@@ -28,9 +30,10 @@ int main(int argc, char const *argv[]){
                 
             getline(input,carvivo);
             
-            while (getline(input,matriz1))
+            while (getline(input,matriz))
             {
-            for( auto it = matriz1.begin(); it < matriz1.end(); ++it) 
+                cont1++;
+            for( auto it = matriz.begin(); it < matriz.end(); ++it) 
             {
                 temp = *it;
                 if(temp == carvivo)
@@ -41,20 +44,52 @@ int main(int argc, char const *argv[]){
                 {
                  *it = '0';   
                 }
-            }    
-            ss3 << matriz1;
-            ss3 << '\n';
+            }
+            cont2 = matriz.size();
+            if(cont2 != largura )
+            {
+                cout << "Matriz de tamanho diferente das dimensões!" << endl;
+                return EXIT_FAILURE;
                 
+            }
+            
+            ss2 << matriz;
+            ss2 << '\n';
+                
+            }
+            if(cont1 != altura)
+            {
+             cout << "Matriz de tamanho diferente das dimensões!" << endl;
+             return EXIT_FAILURE;
             }
               cout << altura << endl;
               cout << largura << endl;
               cout << carvivo << endl; 
-              cout << ss3.str() << endl;  
-            
+              cout << ss2.str() << endl;  
+              
+              
             input.close();
+            
         }
         
         else cout << "Unable to open file." << endl;
+        
+        string create;
+        create = argv[2];
+        
+        ofstream output (create);
+        if (output.is_open())
+        {
+            output << "This is a line.\n";
+            output << "This is another line.\n";
+            output.close();
+        }
+        else cout << "Unable to open file";
+        
+        
+        
+        
+        
         
         
 	std::cout << ">>> Normal Exiting...\n";
