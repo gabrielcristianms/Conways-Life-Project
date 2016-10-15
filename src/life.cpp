@@ -1,5 +1,6 @@
 #include "life.h"
 
+// Default Constructor
 Life::Life( size_type _h = 0, size_type _w = 0)
 	: m_height { _h }
 	, m_width { _w }
@@ -15,14 +16,17 @@ Life::Life( size_type _h = 0, size_type _w = 0)
 	}
 }
 
+// Copy Constructor
 Life::Life( const Life &_obj )
 	: m_height { _obj.m_height }
 	, m_width { _obj.m_width }
 {
+	// Allocating the new memory which we'll be used
 	m_cells = new int* [m_height+2];
 	for( size_type i = 0; i < m_height+2; ++i )
 		m_cells[i] = new int [m_width+2];
 
+	// Copying the values of the passed Life object
 	for(size_type i = 0; i < m_height+2; ++i) {
 		for( size_type j = 0; j < m_width+2; ++j) {
 			m_cells[i][j] = _obj.m_cells[i][j];
@@ -30,12 +34,15 @@ Life::Life( const Life &_obj )
 	}	
 }
 
+// Destructor
 Life::~Life(){
 	for(size_type i = 0; i < m_width+2; ++i)
 		delete [] m_cells[i];
 	delete [] m_cells;
 }
 
+// This method is resposible for setting up the inital configuration that is passed through
+// a stringstream containing a matrix of zeros and ones
 void
 Life::setAlive( std::stringstream &_file ){
 	std::stringstream ss; //This one is an auxiliary used to convert values to the right type
@@ -43,10 +50,10 @@ Life::setAlive( std::stringstream &_file ){
 	size_type i = 1; // Initialized at val 1 so that we only access the m_height x m_width matrix
 	size_type j = 1; // Initialized at val 1 so that we only access the m_height x m_width matrix
 
-	// Loop para pegar cada linha da stringstream e por num vector de strings
+	// Loop to take each line in the stringstream and push it to a vector
 	for( std::string temp; getline( _file, temp ); line.push_back( temp ) ){ /* Empty */ };
 
-	// Loop para popular a matriz
+	// Loop to populate the matrix
 	for( auto e : line ){
 		// the type of 'e' will be the type which the elements of the vector is, i.e. std::string
 		// since the type std::string has begin(), end() methods, we do another ranged for to get the chars of the string
@@ -67,6 +74,7 @@ Life::setAlive( std::stringstream &_file ){
 
 }
 
+//This method applies the rules necessary for the evolution in the simulation
 void
 Life::update( void ){
 	// Create a Life object which will hold the new configuration
@@ -138,18 +146,24 @@ Life::update( void ){
 
 }
 
+// Checks if the actual configuration has already happened before and return true if that is the case
 bool
 Life::isStable( void ){
-	size_type sz = gen.size();
+	size_type sz = gen.size(); //defining the size of our generation array
+	//If it's empty certainly isn't stable
 	if( sz != 0 ){
+		// Search for the actual configuration in our list of configurations
 		auto result = std::find( gen.begin(), gen.end(), *this );
+		// This means that the configuration hasn't been found
 		if( result != gen.end() ) return true;
 	}
 	return false;
 }
 
+// Checks if the actual configuration is extinct and returns true if that is the case
 bool
 Life::isExtinct( void ){
+	//We simply need to run through the matrix and if at least one cell is alive, then it isn't extinct
 	for(size_type i = 1; i <= this->m_height; ++i){
 		for( size_type j = 1; j <= this->m_width; ++j){
 			if( this->m_cells[i][j] != 0 ) return false;
@@ -158,24 +172,32 @@ Life::isExtinct( void ){
 	return true;
 }
 
+// Operator for comparison between Life objects
 bool
 Life::operator==( const Life &_rhs ){
+	// If the height or width are different, they are already different objects
 	if( this->m_height != _rhs.m_height ) return false;
 	if( this->m_width != _rhs.m_width ) return false;
 
+	// In the case they have the same # of lines and columns, we run through the matrix if at least one of the cells from the 
+	// lhs is different than from the rhs, then the whole object is different
 	for(size_type i = 1; i <= this->m_height; ++i) {
 		for( size_type j = 1; j <= this->m_width; ++j) {
 			if( this->m_cells[i][j] != _rhs.m_cells[i][j]) return false;
 		}
 	}
+	// If neither, they're equal
 	return true;
 }
 
+// Tells if two Life are different
 bool
 Life::operator!=( const Life &_rhs ){
+	// Negating the result from operator== yeilds the answer
 	return !( *this == _rhs );
 }
 
+// Assignment operator
 Life&
 Life::operator=( const Life &_rhs ){
 	// Deletes the memory allocated previously

@@ -1,13 +1,13 @@
 #ifndef __LIFE_H__
 #define __LIFE_H__
-#include <iostream>
-#include <fstream>
+#include <iostream> //std::cout and std::cin 
+#include <fstream> //std::ifstream and std::ofstream
 #include <sstream> // std::stringstream
 #include <cassert> // std::assert
 #include <vector>	// std::vector
 #include <utility>	// std::pair
 #include <unordered_map> //hash
-#include <string>
+#include <string> //std:getline
 #include <algorithm> // std::copy
 #include <cstdlib> //EXIT_SUCCESS
 
@@ -47,8 +47,8 @@ class Life{
 			return _os;
 		};
 	private:
-		int **m_cells;
-		size_type m_height;
-		size_type m_width;
+		int **m_cells; // Matrix of integers used to represent the cells of the simulation 
+		size_type m_height; // Number of lines of the matrix
+		size_type m_width; //  Number of columns of the matrix
 };
 #endif
