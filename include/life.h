@@ -1,6 +1,7 @@
 #ifndef __LIFE_H__
 #define __LIFE_H__
 #include <iostream>
+#include <fstream>
 #include <sstream> // std::stringstream
 #include <cassert> // std::assert
 #include <vector>	// std::vector
